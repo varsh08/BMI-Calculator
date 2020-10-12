@@ -1,0 +1,117 @@
+﻿@model MyHealth.Models.BmiCalculator
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 id="userid">@ViewBag.message</h2>
+ <h1 class="font-weight-bold">BMI Calculation</h1>               
+
+    <div style="font-size:20px;">
+
+        @using (Html.BeginForm("Index", "BmiCalculator"))             //bmi form
+        {
+            <br />
+            <div class="form-group col-md-3">
+                @Html.Label("Height in cm/feet/inch") 
+                <select id="htype" class="form-control">
+                    <option>cm</option>
+                    <option>feet</option>
+                    <option>inch</option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(m => m.Height)
+                @Html.TextBoxFor(m => m.Height, new { @class = "form-control", @id = "height", @placeholder = "Height in cm", required = "required" })
+                @Html.ValidationMessageFor(m=>m.Height,"Hi",new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(m => m.Weight)
+                @Html.TextBoxFor(m => m.Weight, new { @class = "form-control", @id = "weight", @required = "required" })
+                @Html.ValidationMessageFor(m=>m.Weight)
+            </div>
+            <br />
+
+            <div>
+                <input type="button" onclick="calc()" id="button2" class="btn btn-primary js-add" value="Calculate">
+            </div>
+             <br />
+
+            <p>Your BMI is <span id="bmi"></span></p>
+             <p id="bmires"></p>
+
+                                                                                          //health tip recommendations
+             <h2 class="text-primary font-weight-bold">Recommendations for you!!!</h2>
+
+            <u>
+                @Html.ActionLink("Health tips to gain weight", "Underweight", "HealthTips", " ", new { @class = "text-dark" })<br />
+                @Html.ActionLink("How to lose weight naturally?", "Overweight", "HealthTips", "", new { @class = "text-dark" })
+            </u>
+
+
+
+
+        }
+
+        @section scripts{
+            <script>                                                  //bmi calculation
+                function calc() {
+                    var htype = document.getElementById("htype").value;
+                var height = document.getElementById("height").value;
+                 var weight = document.getElementById("weight").value;
+                  var height_square = height * height;
+
+                    if (htype == "cm")
+                       var res = weight / (height_square * 0.0001);
+                        else if (htype == "feet")
+                        var res = weight / (height_square * 0.0929);
+                    else if (htype == "inch")
+                        var res = weight / (height_square * 0.0006);
+
+                document.getElementById("bmi").innerHTML = res.toFixed(1);
+                if (res < 18.5)
+                    document.getElementById("bmires").innerHTML = "You are underweight";
+                // document.getElementById("bmiress").innerHTML=@Html.ActionLink("Health tips to gain weight", "Underweight", "HealthTips", " ", new { @class = "text-dark" })<br />
+
+                else if (res >= 18.5 && res <= 24.9)
+                    document.getElementById("bmires").innerHTML = "You are healthy";
+                else if (res >= 25.0 && res <= 29.9)
+                    document.getElementById("bmires").innerHTML = "You are overweight";
+                else if (res >= 30.0)
+                    document.getElementById("bmires").innerHTML = "You are obese";
+
+                
+            }
+              $(document).ready(function () {                        //ajax call
+                    $("#button2").click(function () {
+                        $.ajax(
+                            {
+                                url: "/api/bmicalculator",
+                                method: "POST",
+
+                                data: { //Passing data
+                                    Height: $("#height").val(),
+                                    Weight: $("#weight").val(),
+                                    Bmi: $("#bmi").html(),
+                                    UserId: $("#userid").html()
+
+                                }
+                            });
+
+                    });
+
+                });
+
+            </script>
+        }
+    </div>
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<fieldset>
+ 
+
+@if (Session["FirstName"] != null)
+{<text>
+    Welcome @Session["FirstName"].ToString() </text>
+    } </fieldset>
+
+    
+
+<h1 >@ViewBag.message</h1>
+

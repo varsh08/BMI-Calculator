@@ -1,0 +1,16 @@
+﻿
+<div style="position: absolute; top: 35px; right: 80px; font-size:16px;" class="text-white">
+
+    @if (System.Web.HttpContext.Current.Session["FirstName"] != null)
+    {<text>
+            Welcome @(System.Web.HttpContext.Current.Session["FirstName"].ToString()) ! &nbsp;
+    </text>
+
+
+       
+
+        @Html.ActionLink("Log out", "Logout", "Accounts", new { area = " " }, new { @class = "text-white" })
+}
+</div>
+
+

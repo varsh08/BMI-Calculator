@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNet.Identity
+<div class="navigation">
+    <div class="navbar navbar-default navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container">
+            <div class="navbar-header">
+
+                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>*@
+
+
+            </div>
+            @Html.ActionLink("MyBMI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            @*   <div class="collapse navbar-collapse" id="navbarColor02">*@
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-brand"> @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand nav-link" })</li>
+
+                <li class="navbar-brand">@Html.ActionLink("BMI Calculator", "Index", "BmiCalculator", new { area = " " }, new { @class = "navbar-brand nav-link" }) </li>
+                <li class="navbar-brand"> @Html.ActionLink("MyHistory", "Display", "BmiCalculator", new { area = "" }, new { @class = "navbar-brand nav-link" })</li>
+
+            </ul>
+
+             @Html.Partial("_LoginPartial")
+
+          @*  @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @if (Session["FirstName"] != null)
+                            {<text>
+                                    Welcome @(Session["FirstName"].ToString())
+                            </text>
+                        }
+                        </li>
+                    </ul>
+                    @*  <li>
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" }) </li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    
+
+                    @*  <div class="nav navbar-nav navbar-right">
+                            if (Session["FirstName"] != null)
+                            {<text>
+                                Welcome @Session["FirstName"].ToString()
+                            </text>
+                            }
+                        </div>
+                    
+
+
+                }
+
+            }
+
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                @*  <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Register", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navbar-brand nav-link" })</li>
+                </ul>
+            }
+            *@
+
+
+
+        </div>
+    </div>
+</div>
